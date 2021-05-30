@@ -26,3 +26,5 @@ http://localhost:8761/
 http://localhost:8080/room-reservations
 
 http://localhost:8080/room-reservations?date=2020-01-01
+
+http://localhost:8762/roomreservationservices/room-reservations?date=2020-01-01

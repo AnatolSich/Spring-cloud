@@ -14,18 +14,18 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/room-reservations")
 public class RoomReservationWebService {
-    private final RestTemplate restTemplate;
+    private final RoomClient roomClient;
 
-    public RoomReservationWebService(RestTemplate restTemplate) {
+    public RoomReservationWebService(RoomClient roomClient){
         super();
-        this.restTemplate = restTemplate;
+        this.roomClient = roomClient;
     }
 
     @GetMapping
-    public List<RoomReservation> getRoomReservations() {
-        List<Room> rooms = this.getAllRooms();
+    public List<RoomReservation> getRoomReservations(){
+        List<Room> rooms = this.roomClient.getAllRooms();
         List<RoomReservation> roomReservations = new ArrayList<>();
-        rooms.forEach(room -> {
+        rooms.forEach(room->{
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservation.setRoomName(room.getName());
@@ -35,12 +35,4 @@ public class RoomReservationWebService {
         return roomReservations;
     }
 
-    private List<Room> getAllRooms() {
-        ResponseEntity<List<Room>> roomResponse = this.restTemplate.exchange(
-                "http://ROOMSERVICES/rooms",     //Eureka name of service
-                HttpMethod.GET,
-                null, new ParameterizedTypeReference<List<Room>>() {
-                });
-        return roomResponse.getBody();
-    }
 }

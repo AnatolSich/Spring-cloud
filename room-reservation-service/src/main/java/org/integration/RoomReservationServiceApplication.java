@@ -12,8 +12,11 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 @EnableFeignClients
 public class RoomReservationServiceApplication {
-//with Feign we automatically get Ribbon
+    //with Feign we automatically get Ribbon
     public static void main(String[] args) {
+        // System properties can be set as command line arguments too
+        System.setProperty("archaius.configurationSource.additionalUrls", "classpath:other-config-dir/extra.properties");
+        System.setProperty("archaius.configurationSource.defaultFileName", "other.properties");
         SpringApplication.run(RoomReservationServiceApplication.class, args);
     }
 
